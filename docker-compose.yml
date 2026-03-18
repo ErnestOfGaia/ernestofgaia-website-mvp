@@ -1,0 +1,9 @@
+services:
+  ernestofgaia-site:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ernestofgaia-site
+    restart: unless-stopped
+    ports:
+      - "80:80"
