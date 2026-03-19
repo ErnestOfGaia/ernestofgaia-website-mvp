@@ -1,94 +1,72 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { Linkedin, Youtube } from 'lucide-react';
 
-// ─── CONFIGURE YOUR SMS NUMBER HERE ────────────────────────────────────────
-// Replace with your phone number in E.164 format, e.g. "+15551234567"
-const SMS_NUMBER = '+1YOURNUMBER';
-// ───────────────────────────────────────────────────────────────────────────
+// ─── CONFIGURE YOUR LINKS HERE ──────────────────────────────────────────────
+const SMS_NUMBER   = '+15036640564';
+const LINKEDIN_URL = 'https://www.linkedin.com/in/ernestofgaia/';
+const TWITTER_URL  = 'https://x.com/ErnestOfGaia';
+const YOUTUBE_URL  = 'https://www.youtube.com/@ErnestOfGaia';
+// ────────────────────────────────────────────────────────────────────────────
+
+// X logo SVG (lucide-react's Twitter icon shows the old bird, so we use the X mark)
+const XIcon: React.FC = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.741l7.73-8.835L1.254 2.25H8.08l4.259 5.627 5.905-5.627zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+  </svg>
+);
 
 const Header: React.FC = () => {
-  const [hovered, setHovered] = useState(false);
-
-  // Detect and react to the OS dark/light mode preference
-  const [isDark, setIsDark] = useState<boolean>(
-    () => window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false
-  );
-
-  useEffect(() => {
-    const mq = window.matchMedia('(prefers-color-scheme: dark)');
-    const handler = (e: MediaQueryListEvent) => setIsDark(e.matches);
-    mq.addEventListener('change', handler);
-    return () => mq.removeEventListener('change', handler);
-  }, []);
-
-  const sketchSrc = isDark ? '/header-sketch-dark.png' : '/header-sketch.png';
-
   return (
     <header
       aria-label="Site header"
       style={{
         position: 'relative',
         width: '100%',
-        height: '260px',
-        overflow: 'hidden',
+        background: 'transparent',
+        zIndex: 10,
       }}
     >
-      {/*
-        Sketch image — flipped horizontally so the portrait (originally on
-        the right) appears on the top-left of the header.
-        Light mode → public/header-sketch.png
-        Dark mode  → public/header-sketch-dark.png
-      */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          backgroundImage: `url(${sketchSrc})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center top',
-          transform: 'scaleX(-1)',
-          transition: 'background-image 0.3s ease',
-        }}
-      />
-
-      {/* Soft paper-tone vignette — fades right edge without washing out the art */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background: isDark
-            ? 'linear-gradient(to right, rgba(30,42,56,0.08) 0%, rgba(30,42,56,0.15) 55%, rgba(30,42,56,0.55) 100%),' +
-              'linear-gradient(to bottom, rgba(30,42,56,0.0) 0%, rgba(30,42,56,0.35) 100%)'
-            : 'linear-gradient(to right, rgba(248,246,240,0.08) 0%, rgba(248,246,240,0.15) 55%, rgba(248,246,240,0.55) 100%),' +
-              'linear-gradient(to bottom, rgba(248,246,240,0.0) 0%, rgba(248,246,240,0.35) 100%)',
-        }}
-      />
-
-      {/* Button — sits bottom-right in the open landscape area */}
       <div
         style={{
-          position: 'relative',
-          zIndex: 1,
-          height: '100%',
           display: 'flex',
-          alignItems: 'flex-end',
-          justifyContent: 'flex-end',
-          padding: '2rem 2.5rem',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '1.25rem 2.5rem',
         }}
       >
-        <a
-          href={`sms:${SMS_NUMBER}`}
-          className="sketch-btn"
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
-          style={{
-            boxShadow: hovered
-              ? '3px 3px 0px rgba(84, 97, 112, 0.55)'
-              : '2px 2px 0px rgba(84, 97, 112, 0.35)',
-            transform: hovered ? 'translate(-1px, -1px)' : 'translate(0, 0)',
-          }}
-        >
+        {/* Social icon buttons */}
+        <div style={{ display: 'flex', gap: '0.6rem', alignItems: 'center' }}>
+          <a
+            href={LINKEDIN_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            className="social-btn"
+          >
+            <Linkedin size={18} />
+          </a>
+          <a
+            href={TWITTER_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="X / Twitter"
+            className="social-btn"
+          >
+            <XIcon />
+          </a>
+          <a
+            href={YOUTUBE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="YouTube"
+            className="social-btn"
+          >
+            <Youtube size={18} />
+          </a>
+        </div>
+
+        {/* SMS button */}
+        <a href={`sms:${SMS_NUMBER}`} className="sketch-btn">
           Leave a text message
         </a>
       </div>
