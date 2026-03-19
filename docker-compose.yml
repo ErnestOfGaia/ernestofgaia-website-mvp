@@ -1,6 +1,6 @@
 services:
   ernestofgaia-site:
-    build:
+    image: yourdockerhubuser/ernestofgaia-site:latest
       context: .
       dockerfile: Dockerfile
     restart: unless-stopped
