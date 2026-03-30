@@ -5,6 +5,9 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   base: '/',
+  server: {
+    allowedHosts: ['ernestofgaia.xyz', 'www.ernestofgaia.xyz', 'mobile.ernestofgaia.xyz', 'mvp.ernestofgaia.xyz'],
+  },
   preview: {
     allowedHosts: ['ernestofgaia.xyz', 'www.ernestofgaia.xyz', 'mobile.ernestofgaia.xyz', 'mvp.ernestofgaia.xyz'],
   },
