@@ -6,10 +6,22 @@ export default defineConfig({
   plugins: [react()],
   base: '/',
   server: {
-    allowedHosts: ['ernestofgaia.xyz', 'www.ernestofgaia.xyz', 'mobile.ernestofgaia.xyz', 'mvp.ernestofgaia.xyz'],
+    host: '0.0.0.0',
+    allowedHosts: [
+      'mvp.ernestofgaia.xyz',
+      'ernestofgaia.xyz',
+      'www.ernestofgaia.xyz',
+      'mobile.ernestofgaia.xyz',
+    ],
   },
   preview: {
-    allowedHosts: ['ernestofgaia.xyz', 'www.ernestofgaia.xyz', 'mobile.ernestofgaia.xyz', 'mvp.ernestofgaia.xyz'],
+    host: '0.0.0.0',
+    allowedHosts: [
+      'mvp.ernestofgaia.xyz',
+      'ernestofgaia.xyz',
+      'www.ernestofgaia.xyz',
+      'mobile.ernestofgaia.xyz',
+    ],
   },
   build: {
     outDir: 'dist',
